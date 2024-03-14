@@ -1,0 +1,12 @@
+code will be in three sections:
+1.air
+2.transition
+3.water
+
+we will start with air,
+
+how to start?
+define all governing equations
+do all the needful manupalations 
+apply conditions if there are any
+
