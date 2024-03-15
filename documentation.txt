@@ -1,12 +1,9 @@
-code will be in three sections:
-1.air
-2.transition
-3.water
+12:01 PM 3/15/2024
+Equations are sorted
+four main factors in equation:
+1. Input 
+2. Gyroscopic effect
+3. gravitational effect
+4. phase transition
 
-we will start with air,
-
-how to start?
-define all governing equations
-do all the needful manupalations 
-apply conditions if there are any
-
+**and later we will add coriolis effect also**
