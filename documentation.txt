@@ -1,9 +1,1 @@
-12:01 PM 3/15/2024
-Equations are sorted
-four main factors in equation:
-1. Input 
-2. Gyroscopic effect
-3. gravitational effect
-4. phase transition
-
-**and later we will add coriolis effect also**
+What the current model doing is, it's tring to mimic the behaviour of drone when we give anguler velocities. Further my goal is to track the behaviour of drone to go to a specific point. Currently I am assuming obstacle free space and I will follow manhattun method.
