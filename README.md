@@ -5,4 +5,5 @@ A lot of literature is already available on mathematical models of drone.I have 
 Geometry of drone is referred from "Autopilot Design for a Quadcopter" article.
 
 
+Project is still in progress!! 
  
