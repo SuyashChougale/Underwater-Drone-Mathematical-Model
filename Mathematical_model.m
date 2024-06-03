@@ -1,11 +1,11 @@
 %time initiation
 start_time = 0;
-end_time = 10;
+end_time = 650;
 dt = 0.005;
 times = start_time:dt:end_time;
 
 N = numel(times);%number of instances
-x = [0; 0; 0];
+x = [0; 0; 10];
 xdot = zeros(3,1);
 theta = zeros(3,1);
 
@@ -16,10 +16,10 @@ theta_store = zeros(3, N);
 thetadot_store = zeros(3, N);
 
 % Some disturbance
-deviation = 100;
+deviation = 0;
 thetadot = deg2rad(2*deviation*rand(3,1)-deviation);
 
-m = 1; % Mass of the quadcopter (kg)
+m = 75; % Mass of the quadcopter (kg)
 g = 9.81; % Acceleration due to gravity (m/s^2)
 k = 0.1; % Thrust coefficient
 kd = 0.01; % Drag coefficient
@@ -31,7 +31,7 @@ for idx = 1:N
     t = times(idx);
     i = input(t); % Assuming input(t) is a function providing the inputs at time t
     omega = thetadot2omega(thetadot, theta);
-    a = acceleration(i, theta, xdot, m, g, k, kd);
+    a = acceleration(i, theta, xdot, m, g, k, kd,x(3));
     
     omegadot = angular_acceleration(i, omega, I, L, b, k);
     
@@ -112,8 +112,15 @@ function thetadot = omega2thetadot(omega, theta)
     thetadot = R_inv * omega;
 end
 
-function a = acceleration(inputs, angles, xdot, m, g, k, kd)
-    gravity = [0; 0; -g];
+function a = acceleration(inputs, angles, xdot, m, g, k, kd,x)
+    rho = 1000;
+    V = 0.05;
+    if x>0
+      gravity = [0; 0; -g];
+    else
+      gravity = [0; 0; rho*V*g/m-g];
+    end
+    % gravity = [0; 0; -g];
     R = rotation(angles);
     T = R * thrust(inputs, k);
     Fd = -kd * xdot;
@@ -137,10 +144,10 @@ end
 
 function i = input(t)
     % Placeholder for the input function. Replace with actual input logic.
-    a = sin(t);
-    b = sin(t);
-    c = cos(t);
-    d = cos(t);
+    a = 7400-20*t;
+    b = 7400-20*t;
+    c = 7400-20*t;
+    d = 7400-20*t;
     i = [a; b; c; d]; % Example input, same for all motors
 
 end
