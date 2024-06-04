@@ -1,1 +1,0 @@
-What the current model doing is, it's tring to mimic the behaviour of drone when we give anguler velocities. Further my goal is to track the behaviour of drone to go to a specific point. Currently I am assuming obstacle free space and I will follow manhattun method.
