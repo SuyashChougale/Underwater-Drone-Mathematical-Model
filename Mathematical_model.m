@@ -19,13 +19,6 @@ thetadot_store = zeros(3, N);
 deviation = 0;
 thetadot = deg2rad(2*deviation*rand(3,1)-deviation);
 
-
-% g = 9.81; % Acceleration due to gravity (m/s^2)
-% k = 0.1; % Thrust coefficient
-% kd = 0.01; % Drag coefficient
-% L = 0.25; % Distance from the center to the propeller (m)
-% b = 0.01; % Drag torque coefficient
-% I = [1 0 0; 0 1 0; 0 0 1]; % Inertia matrix (assumed to be identity for simplicity)
 m = 1.04; % Mass of the quadcopter (kg)
 g = 9.81; % Acceleration due to gravity (m/s^2)
 I=[0.01122 0 0; 0 0.01122 0;0 0 0.01122];
