@@ -79,21 +79,35 @@ end
 
 % Plot results
 figure;
-subplot(3,1,1);
+subplot(5,1,1);
 plot(times, x_store);
 title('Position (x) over Time');
 xlabel('Time (s)');
 ylabel('Position (m)');
 legend('x', 'y', 'z');
 
-subplot(3,1,2);
+subplot(5,1,2);
 plot(times, xdot_store);
 title('Velocity (xdot) over Time');
 xlabel('Time (s)');
 ylabel('Velocity (m/s)');
 legend('xdot_x', 'xdot_y', 'xdot_z');
 
-subplot(3,1,3);
+subplot(5,1,4);
+plot(times, theta_store);
+title('Orientation (theta) over Time');
+xlabel('Time (s)');
+ylabel('Angle (rad)');
+legend('theta_x', 'theta_y', 'theta_z');
+
+subplot(5,1,5);
+plot(times, thetadot_store);
+title('Angular Velocity (thetadot) over Time');
+xlabel('Time (s)');
+ylabel('Angular Velocity (rad/s)');
+legend('thetadot_x', 'thetadot_y', 'thetadot_z');
+
+subplot(5,1,3);
 plot(times, a_store);
 title('Acceleration over Time');
 xlabel('Time (s)');
