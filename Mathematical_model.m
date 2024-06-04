@@ -1,6 +1,6 @@
 %time initiation
 start_time = 0;
-end_time = 650;
+end_time = 10;
 dt = 0.005;
 times = start_time:dt:end_time;
 
@@ -19,15 +19,49 @@ thetadot_store = zeros(3, N);
 deviation = 0;
 thetadot = deg2rad(2*deviation*rand(3,1)-deviation);
 
-m = 75; % Mass of the quadcopter (kg)
+
+% g = 9.81; % Acceleration due to gravity (m/s^2)
+% k = 0.1; % Thrust coefficient
+% kd = 0.01; % Drag coefficient
+% L = 0.25; % Distance from the center to the propeller (m)
+% b = 0.01; % Drag torque coefficient
+% I = [1 0 0; 0 1 0; 0 0 1]; % Inertia matrix (assumed to be identity for simplicity)
+m = 1.04; % Mass of the quadcopter (kg)
 g = 9.81; % Acceleration due to gravity (m/s^2)
-k = 0.1; % Thrust coefficient
-kd = 0.01; % Drag coefficient
-L = 0.25; % Distance from the center to the propeller (m)
-b = 0.01; % Drag torque coefficient
-I = [1 0 0; 0 1 0; 0 0 1]; % Inertia matrix (assumed to be identity for simplicity)
+I=[0.01122 0 0; 0 0.01122 0;0 0 0.01122];
 
 for idx = 1:N
+    S = 0.006;
+    if x(3)>0
+        Cd = 0.63;
+        rho_medium = 1.135;
+    else
+        % The drag coefficient is found to be about 1.8 at Reynolds number of 1000, which is at a flow velocity of 0.001m/s.
+        Cd = 1.8;
+        rho_medium = 997;
+    end
+    kd = Cd*rho_medium*S/2;
+    L = 0.23;
+    R = 0.127;
+    if x(3)>0
+        Ct = 0.137;
+        rho_medium = 1.135;
+    else
+        % The drag coefficient is found to be about 1.8 at Reynolds number of 1000, which is at a flow velocity of 0.001m/s.
+        Ct = 1.8;% look value of thrust coefficinets in book
+        rho_medium = 997;
+    end
+    k = Ct*rho_medium*R*R*R*R/2/2/pi/pi;
+    
+    if x(3)>0
+        Ch = 0.0092;
+        rho_medium = 1.135;
+    else
+        % The drag coefficient is found to be about 1.8 at Reynolds number of 1000, which is at a flow velocity of 0.001m/s.
+        Ch = 0.0092;% look value of thrust coefficinets in book
+        rho_medium = 997;
+    end
+    b = Ch*rho_medium*R*R*R*R*R/2/2/pi/pi;
     t = times(idx);
     i = input(t); % Assuming input(t) is a function providing the inputs at time t
     omega = thetadot2omega(thetadot, theta);
@@ -113,8 +147,8 @@ function thetadot = omega2thetadot(omega, theta)
 end
 
 function a = acceleration(inputs, angles, xdot, m, g, k, kd,x)
-    rho = 1000;
-    V = 0.05;
+    rho = 997;
+    V = 0.005;
     if x>0
       gravity = [0; 0; -g];
     else
@@ -144,10 +178,10 @@ end
 
 function i = input(t)
     % Placeholder for the input function. Replace with actual input logic.
-    a = 7400-20*t;
-    b = 7400-20*t;
-    c = 7400-20*t;
-    d = 7400-20*t;
+    a = 71;
+    b = 71;
+    c = 71;
+    d = 71;
     i = [a; b; c; d]; % Example input, same for all motors
 
 end
